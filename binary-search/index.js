@@ -20,6 +20,21 @@ function binarySearch(arr, item) {
   return `${item} is not in the array`;
 }
 
+function recursiveBinarySearch(arr, item) {
+  if (arr.length === 1) {
+    return arr[0] === item;
+  }
+
+  if (arr[Math.floor(arr.length / 2)] === item) {
+    return true;
+  }
+
+  return arr[Math.floor(arr.length / 2)] < item ?
+    recursiveBinarySearch(arr.slice(Math.floor(arr.length / 2)), item) :
+    recursiveBinarySearch(arr.slice(0, Math.floor(arr.length / 2)), item);
+}
+
 const myList = [1, 3, 5, 7, 9];
 
-console.log(binarySearch(myList, 2));
+console.log(binarySearch(myList, 5));
+console.log(recursiveBinarySearch(myList, 1));
