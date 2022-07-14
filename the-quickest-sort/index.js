@@ -6,7 +6,7 @@ function qSort(arr) {
     return arr;
   }
 
-  const pivot = Math.floor(arr.length / 2)
+  const pivot = Math.floor(Math.random() * arr.length);
   const less = arr.filter(n => n < arr[pivot]);
   const bigger = arr.filter(n => n > arr[pivot]);
 
