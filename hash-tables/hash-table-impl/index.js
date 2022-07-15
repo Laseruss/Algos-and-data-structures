@@ -16,7 +16,7 @@ class HashTable {
     this.size++;
   }
 
-  setMany(arr) {
+  setMany(arr) {                // Arr needs to be in form [[key, value], [key, value] etc..].
     arr.forEach(item => {
       const index = this._generateHash(item[0]);
       this.table[index] = [item[0], item[1]]; 
