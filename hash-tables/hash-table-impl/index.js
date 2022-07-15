@@ -31,7 +31,7 @@ class HashTable {
   get(key) {
     const index = this._generateHash(key);
     if (!this.table[index]) {
-      return undefined
+      return `key: ${key} is undefined`;
     }
     if (this.table[index][0][0] === key && this.table[index].length === 1) {
       return this.table[index];
