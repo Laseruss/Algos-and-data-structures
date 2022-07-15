@@ -1,5 +1,23 @@
 // Making my own hash table generator.
 
+class LinkedList{
+  constructor() {
+    this.head = null;
+  }
+
+  addNode(data) {
+    const newNode = new Node(data, this.head);
+    this.head = newNode;
+  }
+}
+
+class Node{
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
 class HashTable {
   constructor(len) {
     this.table = new Array(len);
@@ -13,10 +31,12 @@ class HashTable {
   set(key, value) {
     const index = this._generateHash(key);
     if (typeof this.table[index] === "undefined") {
-      this.table[index] = [[key, value]];
+      const list = new LinkedList();
+      list.addNode([key, value]);
+      this.table[index] = list;
       this.size++
     } else {
-      this.table[index].push([key,value]);
+      this.table[index].addNode([key, value]);
       this.size++;
     }
   }
@@ -27,24 +47,28 @@ class HashTable {
       this.size++;
     })
   }
-
+  // TODO: Sort of works, cant seem to make it so that i can iterate over the linked list multiple times.
+  // Fix for another day
   get(key) {
     const index = this._generateHash(key);
     if (!this.table[index]) {
       return `key: ${key} is undefined`;
     }
-    if (this.table[index][0][0] === key && this.table[index].length === 1) {
-      return this.table[index];
-    }
-    for (let i = 0; i < this.table[index].length; i++) {
-      if (this.table[index][i][0] === key) {
-        return this.table[index][i];
+
+    const head = this.table.slice(index, index + 1)[0];
+    console.log("w", head);
+    while(this.table[index].head !== null) {
+      if (this.table[index].head.data[0] === key) {
+        const res = this.table[index].head.data;
+        this.table[index] = head;
+        console.log("hello", this.table[index]);
+        return res;
       }
+      this.table[index].head = this.table[index].head.next;
+      console.log("l", this.table[index])
     } 
   }
 
-  // Remove does not work if there has been collisions on that index of the array
-  // will remove all elements at that index and set value to undefined.
   remove(key) {
     const index = this._generateHash(key);
     this.table[index] = undefined;
