@@ -16,6 +16,14 @@ class HashTable {
     this.size++;
   }
 
+  setMany(arr) {
+    arr.forEach(item => {
+      const index = this._generateHash(item[0]);
+      this.table[index] = [item[0], item[1]]; 
+      this.size++;
+    })
+  }
+
   get(key) {
     return this.table[this._generateHash(key)];
   }
@@ -34,9 +42,9 @@ table.set("banana", 10);
 table.set("apple", 4);
 
 console.log(table.get("banana"));
-console.log(table.get("apple"));
 
 table.remove("apple");
-
 console.log(table.get("apple"));
-console.log(table.get("starfruit"));
+
+table.setMany([["pear", 2], ["avocado", 29], ["onion", 1]])
+console.log(table.get("avocado"));
