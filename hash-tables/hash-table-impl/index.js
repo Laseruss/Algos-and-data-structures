@@ -10,14 +10,19 @@ class HashTable {
     return key.split("").reduce((a,b) => a + b.charCodeAt(), 0) % this.table.length;
   }
 
-  set (key, value) {
+  set(key, value) {
     const index = this._generateHash(key);
     this.table[index] = [key, value];
     this.size++;
   }
 
-  get (key) {
+  get(key) {
     return this.table[this._generateHash(key)];
+  }
+
+  remove(key) {
+    const index = this._generateHash(key);
+    this.table[index] = undefined;
   }
 }
 
@@ -31,3 +36,7 @@ table.set("apple", 4);
 console.log(table.get("banana"));
 console.log(table.get("apple"));
 
+table.remove("apple");
+
+console.log(table.get("apple"));
+console.log(table.get("starfruit"));
