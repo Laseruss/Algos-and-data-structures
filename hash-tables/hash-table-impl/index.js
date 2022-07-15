@@ -12,8 +12,14 @@ class HashTable {
 
   set(key, value) {
     const index = this._generateHash(key);
-    this.table[index] = [key, value];
-    this.size++;
+    console.log(index);
+    if (typeof this.table[index] === "undefined") {
+      this.table[index] = [[key, value]];
+      this.size++
+    } else {
+      this.table[index].push([key,value]);
+      this.size++;
+    }
   }
 
   setMany(arr) {                // Arr needs to be in form [[key, value], [key, value] etc..].
@@ -25,7 +31,19 @@ class HashTable {
   }
 
   get(key) {
-    return this.table[this._generateHash(key)];
+    const index = this._generateHash(key);
+    console.log(this.table[index]);
+    if (!this.table[index]) {
+      return undefined
+    }
+    if (this.table[index][0][0] === key) {
+      return this.table[index];
+    }
+    for (let i = 0; i < this.table[index].length; i++) {
+      if (this.table[index][i][0] === key) {
+        return this.table[index][i];
+      }
+    } 
   }
 
   remove(key) {
@@ -35,7 +53,7 @@ class HashTable {
 }
 
 
-const table = new HashTable(127);
+const table = new HashTable(15);
 
 table.set("orange", 2);
 table.set("banana", 10);
@@ -43,8 +61,12 @@ table.set("apple", 4);
 
 console.log(table.get("banana"));
 
-table.remove("apple");
-console.log(table.get("apple"));
-
 table.setMany([["pear", 2], ["avocado", 29], ["onion", 1]])
 console.log(table.get("avocado"));
+
+
+table.set("Spain", 3);
+table.set("ǻ", 5);
+
+console.log(table.get("Spain"));
+console.log(table.get("ǻ"));
