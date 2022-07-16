@@ -73,22 +73,3 @@ class HashTable {
     this.table[index] = undefined;
   }
 }
-
-const table = new HashTable(15);
-
-table.set("orange", 2);
-table.set("banana", 10);
-table.set("apple", 4);
-console.log(table.get("banana"));
-
-table.remove("apple");
-console.log(table.get("apple"));
-
-table.setMany([["pear", 2], ["avocado", 29], ["onion", 1]])
-console.log(table.get("avocado"));
-
-
-table.set("Spain", 3);
-table.set("ǻ", 5);
-console.log(table.get("Spain"));
-console.log(table.get("ǻ"));
