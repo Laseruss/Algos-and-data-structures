@@ -9,6 +9,16 @@ class LinkedList{
     const newNode = new Node(data, this.head);
     this.head = newNode;
   }
+
+  findNode(key) {
+    let curr = this.head;
+    while (curr !== null) {
+      if (curr.data[0] === key) {
+        return curr.data;
+      }
+      curr = curr.next;
+    }
+  }
 }
 
 class Node{
@@ -55,18 +65,7 @@ class HashTable {
       return `key: ${key} is undefined`;
     }
 
-    const head = this.table.slice(index, index + 1)[0];
-    console.log("w", head);
-    while(this.table[index].head !== null) {
-      if (this.table[index].head.data[0] === key) {
-        const res = this.table[index].head.data;
-        this.table[index] = head;
-        console.log("hello", this.table[index]);
-        return res;
-      }
-      this.table[index].head = this.table[index].head.next;
-      console.log("l", this.table[index])
-    } 
+    return this.table[index].findNode(key);
   }
 
   remove(key) {
