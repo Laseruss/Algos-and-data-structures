@@ -1,6 +1,3 @@
-// Implement the graph.
-// I think this is an implementation of bfs
-
 graph = {
   you: ["alice", "bob", "claire"],
   alice: ["peggy"],
