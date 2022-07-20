@@ -1,6 +1,6 @@
 // Implementation of dijkstras algorithm.
 
-const graph = {
+/* const graph = {
     start: {
         a: 6,
 	b: 2
@@ -25,6 +25,43 @@ const parents = {
     a: "start",
     b: "start",
     fin: null
+}
+*/
+
+const graph = {
+    start: {
+	a: 5,
+	b: 2,
+    },
+    a: {
+	c: 4,
+	d: 2
+    },
+    b: {
+	a: 8,
+	d: 7
+    },
+    c: {
+	fin: 3,
+	d: 6
+    },
+    d: {
+	fin: 1
+    },
+    fin: {}
+}
+
+const costs = {
+    a: 5,
+    b: 2,
+    c: Infinity,
+    d: Infinity,
+    fin: Infinity
+}
+
+const parents = {
+    a: "start",
+    b: "start"
 }
 
 function findLowestCostNode(costs) {
@@ -54,6 +91,17 @@ while (node !== null) {
 	}
     }
     processed.push(node);
-    console.log(node);
     node = findLowestCostNode(costs);
 }
+
+function displayPath(obj) {
+    const path = ["fin"];
+    let x = obj["fin"];
+    while (x !== "start") {
+	path.unshift(x);
+	x = parents[x];
+    }
+    path.unshift("start");
+    return path;
+}
+console.log(displayPath(parents));
