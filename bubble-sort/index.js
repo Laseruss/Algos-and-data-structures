@@ -1,7 +1,11 @@
 function bubbleSort(arr) {
+    let maxIndex = arr.length - 1;
+    let sorted = false;
+
     while (true) {
-        let sorted = true;
-        for (let i = 0; i < arr.length - 1; i++) {
+        sorted = true;
+
+        for (let i = 0; i < maxIndex; i++) {
              if(arr[i] > arr[i + 1]) {
                 const temp = arr[i];
                 arr[i] = arr[i + 1];
@@ -12,9 +16,10 @@ function bubbleSort(arr) {
         if (sorted) {
             return arr;
         }
+        maxIndex--;
     }
 }
 
-const arr = [-1234, 34, 1, 577, 453, 1, 5, 22, 985, 21, 2, 34, 6, 3, 5];
+const arr = [65, 44, 45, 35, 25, 15, 10];
 
 console.log(bubbleSort(arr));
