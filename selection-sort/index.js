@@ -36,6 +36,24 @@ function sortSmallToLarge(arr) {
   return sorted;
 }
 
+function selectionSortTwo(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let lowestInd = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[lowestInd] > arr[j]) {
+        lowestInd = j;
+      }
+    }
+    if (lowestInd !== i) {
+      let temp = arr[i];
+      arr[i] = arr[lowestInd];
+      arr[lowestInd] = temp;
+    }
+  }
+  return arr;
+}
+
 const myArr = [1, 3, 8, 2, 34, 12, 143, 24];
 
 console.log(sortSmallToLarge(myArr));
+console.log(selectionSortTwo(myArr));
