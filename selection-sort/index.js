@@ -37,7 +37,7 @@ function sortSmallToLarge(arr) {
 }
 
 function selectionSortTwo(arr) {
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length - 1; i++) {
     let lowestInd = i;
     for (let j = i + 1; j < arr.length; j++) {
       if (arr[lowestInd] > arr[j]) {
