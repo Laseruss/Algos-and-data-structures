@@ -32,15 +32,21 @@ function match(str) {
         let p = "([{";
 
         if (p.includes(arr[i])) {
-            stack.push(arr[i])
+            stack.push(arr[i]);
         } else if (pairs[arr[i]]) {
-            if (pairs[arr[i]] !== stack.pop()) {
-                return false;
+            val = stack.pop();
+            if (!val) {
+                return `${arr[i]} does not have a matching opening bracket`;
+            } else if (pairs[arr[i]] !== val) {
+                return `${arr[i]} has mismatched opening bracket`;
             }
         }
     }
-    console.log(stack.read());
-    return stack.read() === undefined;
+    if (stack.read() !== undefined) {
+        return `${stack.pop()} does not have a matching closing bracket.`;
+    }
+
+    return true;
 }
 
-console.log(match("( [({})]"));
+console.log(match("[({})]"));
