@@ -12,6 +12,10 @@ class Stack {
     pop() {
         return this.stack.pop();
     }
+
+    read() {
+        return this.stack[this.stack.length - 1];
+    }
 }
 
 const pairs = {
@@ -35,7 +39,8 @@ function match(str) {
             }
         }
     }
-    return true;
+    console.log(stack.read());
+    return stack.read() === undefined;
 }
 
-console.log(match("(let[ x p) {asl} eggg [({})]"));
+console.log(match("( [({})]"));
