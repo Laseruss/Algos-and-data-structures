@@ -1,0 +1,63 @@
+package main
+
+import "fmt"
+
+// Struct type for each vertex in a graph
+type Vertex struct {
+	value    interface{}
+	adjacent []*Vertex
+}
+
+// Constructor that returns a new vertex with value set to passed argument
+// and an empty slice for adjacent vertices.
+func constructor(value interface{}) Vertex {
+	return Vertex{
+		value:    value,
+		adjacent: []*Vertex{},
+	}
+}
+
+// Adds a vertex as adjacent to the vertex that called the method, also sets
+// the vertex called as adjacent on the vertex that is passed in. If the vertex is
+// already adjacent nothing happens.
+func (v *Vertex) add(val *Vertex) {
+	for _, vertex := range v.adjacent {
+		if vertex == val {
+			return
+		}
+	}
+
+	v.adjacent = append(v.adjacent, val)
+	val.adjacent = append(val.adjacent, v)
+}
+
+// Performs depth first search through the graph, for now it prints out the value
+// of every vertex in the graph. Needs to be passed a map to know which vertices
+// that has already been visited.
+func (v *Vertex) depthFirstSearch(visited map[*Vertex]bool) {
+	visited[v] = true
+	fmt.Println(v.value)
+
+	for _, vertex := range v.adjacent {
+		if _, ok := visited[vertex]; !ok {
+			vertex.depthFirstSearch(visited)
+		}
+	}
+}
+
+func main() {
+	alice := constructor("alice")
+	bob := constructor("bob")
+	cynthia := constructor("cynthia")
+
+	alice.add(&bob)
+	alice.add(&cynthia)
+	bob.add(&cynthia)
+	cynthia.add(&bob)
+
+	fmt.Println(alice)
+	fmt.Println(bob)
+	fmt.Println(cynthia)
+
+	cynthia.depthFirstSearch(map[*Vertex]bool{})
+}
