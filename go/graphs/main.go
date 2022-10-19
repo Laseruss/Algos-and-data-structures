@@ -70,6 +70,34 @@ func (v *Vertex) depthFirstSearch(want interface{}, visited map[*Vertex]bool) *V
 	return nil
 }
 
+func (v *Vertex) BreadthFirstTraverse(visited map[interface{}]bool) {
+	visited[v.value] = true
+	queue := []*Vertex{v}
+
+	for len(queue) > 0 {
+		q, curr := dequeue(queue)
+		queue = q
+
+		fmt.Println(curr.value)
+
+		for _, v := range curr.adjacent {
+			if _, ok := visited[v.value]; !ok {
+				visited[v.value] = true
+				queue = enqueue(v, queue)
+			}
+		}
+	}
+}
+
+func enqueue(value *Vertex, l []*Vertex) []*Vertex {
+	l = append(l, value)
+	return l
+}
+
+func dequeue(l []*Vertex) ([]*Vertex, *Vertex) {
+	return l[1:], l[0]
+}
+
 func main() {
 	alice := constructor("alice")
 	bob := constructor("bob")
@@ -80,11 +108,9 @@ func main() {
 	bob.add(&cynthia)
 	cynthia.add(&bob)
 
-	fmt.Println(alice)
-	fmt.Println(bob)
-	fmt.Println(cynthia)
-
 	cynthia.depthFirstTraverse(map[*Vertex]bool{})
 
 	fmt.Println(alice.depthFirstSearch("glenn", map[*Vertex]bool{}))
+
+	alice.BreadthFirstTraverse((map[interface{}]bool{}))
 }
