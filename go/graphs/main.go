@@ -34,15 +34,40 @@ func (v *Vertex) add(val *Vertex) {
 // Performs depth first search through the graph, for now it prints out the value
 // of every vertex in the graph. Needs to be passed a map to know which vertices
 // that has already been visited.
-func (v *Vertex) depthFirstSearch(visited map[*Vertex]bool) {
+func (v *Vertex) depthFirstTraverse(visited map[*Vertex]bool) {
 	visited[v] = true
 	fmt.Println(v.value)
 
 	for _, vertex := range v.adjacent {
 		if _, ok := visited[vertex]; !ok {
-			vertex.depthFirstSearch(visited)
+			vertex.depthFirstTraverse(visited)
 		}
 	}
+}
+
+func (v *Vertex) depthFirstSearch(want interface{}, visited map[*Vertex]bool) *Vertex {
+	if v.value == want {
+		return v
+	}
+	visited[v] = true
+
+	for _, vertex := range v.adjacent {
+		if _, ok := visited[vertex]; ok {
+			continue
+		}
+
+		if vertex.value == want {
+			return vertex
+		}
+
+		searchedVertix := vertex.depthFirstSearch(want, visited)
+
+		if searchedVertix != nil {
+			return searchedVertix
+		}
+	}
+
+	return nil
 }
 
 func main() {
@@ -59,5 +84,7 @@ func main() {
 	fmt.Println(bob)
 	fmt.Println(cynthia)
 
-	cynthia.depthFirstSearch(map[*Vertex]bool{})
+	cynthia.depthFirstTraverse(map[*Vertex]bool{})
+
+	fmt.Println(alice.depthFirstSearch("glenn", map[*Vertex]bool{}))
 }
