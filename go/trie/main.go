@@ -65,10 +65,11 @@ func (t *Trie) FindCompletions(prefix string) []string {
 
 func main() {
 	trie := Trie{map[rune]*Trie{}}
-	words := []string{"ace", "act", "bad", "bake", "bat", "batter", "cab", "cat", "catnap", "catnip"}
+	words := []string{"ace", "act", "bad", "bake", "bat", "batter", "cab", "cat", "catnap", "catnip", "about", "amid"}
 	for _, word := range words {
 		trie.Insert(word)
 	}
 
+	fmt.Println(collectWords(&trie, "", []string{}))
 	fmt.Println(trie.FindCompletions("cat"))
 }

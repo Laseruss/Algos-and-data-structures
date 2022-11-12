@@ -60,10 +60,10 @@ func (v *Vertex) depthFirstSearch(want interface{}, visited map[*Vertex]bool) *V
 			return vertex
 		}
 
-		searchedVertix := vertex.depthFirstSearch(want, visited)
+		searchedVertex := vertex.depthFirstSearch(want, visited)
 
-		if searchedVertix != nil {
-			return searchedVertix
+		if searchedVertex != nil {
+			return searchedVertex
 		}
 	}
 
