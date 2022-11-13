@@ -104,7 +104,7 @@ func findShortest(startingPoint Vertex, endPoint string) string {
 	}
 	result += path[0]
 
-	return fmt.Sprintf("The shortest route cost wise is: %s\nThe cost is %d", result, lowestCost[endPoint])
+	return fmt.Sprintf("The shortest path is: %s\nThe cost is %d", result, lowestCost[endPoint])
 }
 
 func minUnvisited(notSeen []*Vertex, lowestCost map[string]int) Vertex {
